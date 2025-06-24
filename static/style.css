@@ -1,0 +1,8 @@
+nav {
+    display: inline-block;
+}
+
+.nav {
+    display: inline-block;
+    list-style-type: none;
+}
