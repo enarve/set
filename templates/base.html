@@ -1,32 +1,40 @@
 <!doctype html>
 
 <html>
-    <head>
-        <title>Set</title>
-        <link href="static/style.css" rel="stylesheet" />
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    </head>
-    <body>
 
-        <nav class="nav">
-            <div class="nav logo"><a href="/">Set</a></div>
-            <ul class="nav">
-                <li class="nav">
-                    <a href="">Game</a>
-                </li>
-                <li class="nav">
-                    <a href="">Leaderboard</a>
-                </li>
-                <li class="nav">
-                    <a href="">Rules</a>
-                </li>
-            </ul>
-        </nav>
+    <head>
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+        <link href="static/style.css" rel="stylesheet" />
+        <link rel="shortcut icon" href="static/favicon.ico">
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <div class="logo"><a href="/">Set</a></div>
+                <ul>
+                    <li>
+                        <a href="/">Game</a>
+                    </li>
+                    <li>
+                        <a href="/leaderboard">Leaderboard</a>
+                    </li>
+                    <li>
+                        <a href="/rules">Rules</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
 
         <main>
-
+            {% block main %}{% endblock %}
         </main>
 
-        
+        <footer>
+        </footer>
+  
     </body>
+
 </html>
