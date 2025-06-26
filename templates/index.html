@@ -5,5 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    Here the content of the game will be
+    <table>
+    {% for row in range(rows) %}
+    <tr>
+        {% for column in range(columns) %}
+            <td>
+                <div class="card">
+                    Card
+                </div>
+            </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </table>
 {% endblock %}
