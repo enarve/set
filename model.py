@@ -1,3 +1,5 @@
+from random import shuffle
+
 class Card():
 
     def __init__(self, color, number, form, fill):
@@ -15,6 +17,7 @@ class Deck():
     cards: list[Card]
 
     def __init__(self):
+        self.cards = []
         # Initialize the deck
         for i in range(3):
             for j in range(3):
@@ -22,6 +25,7 @@ class Deck():
                     for l in range(3):
                         card = Card(i, j, k, l)
                         self.cards.append(card)
+        shuffle(self.cards)
 
 
 class Game():
@@ -29,4 +33,7 @@ class Game():
     deck: Deck
 
     def __init__(self):
-        deck = Deck()
+        self.deck = Deck()
+
+    def restart(self):
+        self.deck = Deck()

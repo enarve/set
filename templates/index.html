@@ -11,7 +11,12 @@
         {% for column in range(columns) %}
             <td>
                 <div class="card">
-                    [color, number, form, fill]
+                    [
+                    {{cards[columns * row + column].color}}
+                    {{cards[columns * row + column].number}}
+                    {{cards[columns * row + column].form}}
+                    {{cards[columns * row + column].fill}}
+                    ]
                 </div>
             </td>
         {% endfor %}
