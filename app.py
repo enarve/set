@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 
+from model import Card
+
 app = Flask(__name__)
 
 @app.route('/')

@@ -11,11 +11,17 @@
         {% for column in range(columns) %}
             <td>
                 <div class="card">
-                    Card
+                    [color, number, form, fill]
                 </div>
             </td>
         {% endfor %}
     </tr>
     {% endfor %}
     </table>
+
+    <div>
+        <p>Score: 0</p>
+        <button>Add 3 cards</button>
+        <button>Restart</button>
+    </div>
 {% endblock %}
