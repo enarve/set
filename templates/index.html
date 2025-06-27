@@ -10,6 +10,7 @@
     <tr>
         {% for column in range(columns) %}
             <td>
+                {% if columns * row + column < cards|length %}
                 <div class="card">
                     [
                     {{cards[columns * row + column].color}}
@@ -18,6 +19,7 @@
                     {{cards[columns * row + column].fill}}
                     ]
                 </div>
+                {% endif %}
             </td>
         {% endfor %}
     </tr>

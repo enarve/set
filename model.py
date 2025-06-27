@@ -1,4 +1,5 @@
 from random import shuffle
+from math import ceil
 
 class Card():
 
@@ -37,6 +38,12 @@ class Table():
     def __init__(self):
         self.cards = []
 
+    def get_rows(self):
+        return ceil(len(self.cards) / self.get_columns())
+
+    def get_columns(self):
+        return 4
+
 
 class Pile():
     # Discard pile, cards already played
@@ -61,8 +68,8 @@ class Game():
 
     def deal(self, number=12):
         for _ in range(number):
-            card = self.deck.pop()
-            self.table.append(card)
+            card = self.deck.cards.pop()
+            self.table.cards.append(card)
 
     def restart(self):
         self.deck = Deck()

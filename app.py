@@ -15,7 +15,7 @@ def index():
             game.deal(3)
             return redirect("/")
     else:
-        return render_template('index.html', cards=game.deck.cards, rows=4, columns=3)
+        return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns())
 
 @app.route('/leaderboard')
 def leaderboard():
