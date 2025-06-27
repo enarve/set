@@ -66,6 +66,34 @@ class Game():
         self.pile = Pile()
         self.deal()
 
+    def compare(self, *cards):
+        if len(cards == 3):
+            return self.compare_conditions(cards)
+        else:
+            return False
+    
+    def compare_conditions(self, *cards):
+        # Compare if all equal or all different
+
+        # Colors
+        ecolor = cards[0].color == cards[1].color and cards[1].color == cards[2].color
+        dcolor = cards[0].color != cards[1].color and cards[1].color != cards[2].color
+
+        # Number
+        enumber = cards[0].number == cards[1].number and cards[1].number == cards[2].number
+        dnumber = cards[0].number != cards[1].number and cards[1].number != cards[2].number
+
+        # Form
+        eform = cards[0].form == cards[1].form and cards[1].form == cards[2].form
+        dform = cards[0].form != cards[1].form and cards[1].form != cards[2].form
+
+        # Fill
+        efill = cards[0].fill == cards[1].fill and cards[1].fill == cards[2].fill
+        dfill = cards[0].fill != cards[1].fill and cards[1].fill != cards[2].fill
+
+        condition = (ecolor or dcolor) and (enumber or dnumber) and (eform or dform) and (efill or dfill)
+        return condition
+
     def deal(self, number=12):
         for _ in range(number):
             card = self.deck.cards.pop()
