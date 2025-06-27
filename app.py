@@ -11,6 +11,9 @@ def index():
         if request.form.get("restart"):
             game.restart()
             return redirect("/")
+        elif request.form.get("deal_more"):
+            game.deal(3)
+            return redirect("/")
     else:
         return render_template('index.html', cards=game.deck.cards, rows=4, columns=3)
 

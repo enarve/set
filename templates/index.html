@@ -26,7 +26,9 @@
 
     <div>
         <p>Score: 0</p>
-        <button>Add 3 cards</button>
+        <form action="/", method="post">
+            <button name="deal_more" value="deal_more">Add 3 cards</button>
+        </form>
         <form action="/", method="post">
             <button name="restart" value="restart">Restart</button>
         </form>
