@@ -13,6 +13,7 @@ class Card():
 
 
 class Deck():
+    # Deck of cards yet to be played
 
     cards: list[Card]
 
@@ -28,12 +29,43 @@ class Deck():
         shuffle(self.cards)
 
 
+class Table():
+    # Cards on the table
+
+    cards: list[Card]
+
+    def __init__(self):
+        self.cards = []
+
+
+class Pile():
+    # Discard pile, cards already played
+
+    cards: list[Card]
+
+    def __init__(self):
+        self.cards = []
+
+
 class Game():
 
     deck: Deck
+    table: Table
+    pile: Pile
 
     def __init__(self):
         self.deck = Deck()
+        self.table = Table()
+        self.pile = Pile()
+        self.deal()
+
+    def deal(self, number=12):
+        for _ in range(number):
+            card = self.deck.pop()
+            self.table.append(card)
 
     def restart(self):
         self.deck = Deck()
+        self.table = Table()
+        self.pile = Pile()
+        self.deal()
