@@ -35,3 +35,9 @@ nav a {
 nav a:hover {
     color: darkblue;
 }
+
+/* Card appearance */
+.card {
+    padding: 20;
+    margin: 10;
+}

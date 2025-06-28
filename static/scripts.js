@@ -16,9 +16,11 @@ async function fetchCompare() {
 
     const json = await response.json();
     console.log(json);
+    return json;
   } catch (error) {
     console.error(error.message);
   }
+//   return;
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -32,23 +34,20 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // Change selection
-            if (selection.includes(event.target)) {
+            if (selection.includes(event.target.id)) {
                 // Deselect card
-                const index = selection.indexOf(event.target)
+                const index = selection.indexOf(event.target.id)
                 if (index > -1) {
                     selection.splice(index, 1);
                 }
             } else {
                 // Select card
-                selection.push(event.target);
+                selection.push(event.target.id);
             }
 
-            // console.log(event.target)
-
             // Update appearance
-            
             for (card of cards) {
-                if (selection.includes(card)) {
+                if (selection.includes(card.id)) {
                     card.style.backgroundColor = "yellow";
                 } else {
                     card.style.backgroundColor = "";
@@ -56,9 +55,25 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // Check triple if set
-            console.log(selection);
             if (selection.length == 3) {
-                await fetchCompare();
+                result = await fetchCompare();
+                if (result) {
+                    for (card of cards) {
+                        if (selection.includes(card.id)) {
+                            card.style.backgroundColor = "green";
+                        } else {
+                            card.style.backgroundColor = "";
+                        }
+                    }
+                } else {
+                    for (card of cards) {
+                        if (selection.includes(card.id)) {
+                            card.style.backgroundColor = "red";
+                        } else {
+                            card.style.backgroundColor = "";
+                        }
+                    }
+                }
             }
         })
     }

@@ -21,11 +21,17 @@ def index():
 
 @app.route('/data/compare', methods=["POST"])
 def compare():
+    result = False
     data = request.json
     # TODO: check if received cards are on the table
-    
-    print(data)
-    return json.dumps(True)
+    selection = data.get("selection")
+    print(selection)
+    if selection:
+        selected_cards = []
+        for id in selection:
+            card = game.table.get_card(id)
+        result = game.compare(selected_cards)
+    return json.dumps(result)
 
 @app.route('/leaderboard')
 def leaderboard():

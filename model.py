@@ -3,7 +3,8 @@ from math import ceil
 
 class Card():
 
-    def __init__(self, color, number, form, fill):
+    def __init__(self, id, color, number, form, fill):
+        self.id = id
         self.color = color
         self.number = number
         self.form = form
@@ -25,7 +26,8 @@ class Deck():
             for j in range(3):
                 for k in range(3):
                     for l in range(3):
-                        card = Card(i, j, k, l)
+                        id = len(self.cards)
+                        card = Card(id, i, j, k, l)
                         self.cards.append(card)
         shuffle(self.cards)
 
@@ -43,6 +45,14 @@ class Table():
 
     def get_columns(self):
         return 4
+    
+    def get_card(self, id):
+        try:
+            id = int(id)
+            card = next(card for card in self.cards if card.id == id)
+            return card
+        except:
+            print(f"Error while searching for card with id {id}.")
 
 
 class Pile():
@@ -67,7 +77,7 @@ class Game():
         self.deal()
 
     def compare(self, *cards):
-        if len(cards == 3):
+        if len(cards) == 3:
             return self.compare_conditions(cards)
         else:
             return False
