@@ -38,6 +38,15 @@ nav a:hover {
 
 /* Card appearance */
 .card {
-    padding: 20;
-    margin: 10;
+    width: 100px;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.card-table {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 5px;
 }

@@ -5,11 +5,9 @@
 {% endblock %}
 
 {% block main %}
-    <table>
+    <div class="card-table">
     {% for row in range(rows) %}
-    <tr>
         {% for column in range(columns) %}
-            <td>
                 {% if columns * row + column < cards|length %}
                 <div class="card" id="{{cards[columns * row + column].id}}">
                     [
@@ -20,11 +18,9 @@
                     ]
                 </div>
                 {% endif %}
-            </td>
         {% endfor %}
-    </tr>
     {% endfor %}
-    </table>
+</div>
 
     <div>
         <p>Score: 0</p>
