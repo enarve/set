@@ -15,6 +15,10 @@ def index():
         elif request.form.get("deal_more"):
             game.deal(3)
             return redirect("/")
+        elif request.json.get("update"):
+            print("update")
+            result = game.move_set_to_pile()
+            return json.dumps(result)
 
     else:
         return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns())
@@ -30,7 +34,10 @@ def compare():
         selected_cards = []
         for id in selection:
             card = game.table.get_card(id)
+            selected_cards.append(card)
         result = game.compare(selected_cards)
+        if result:
+            game.take_set(selected_cards)
     return json.dumps(result)
 
 @app.route('/leaderboard')

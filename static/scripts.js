@@ -20,7 +20,28 @@ async function fetchCompare() {
   } catch (error) {
     console.error(error.message);
   }
-//   return;
+}
+
+async function fetchUpdate() {
+  const url = "/";
+  try {
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ update: true }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    console.log(json);
+    return json;
+  } catch (error) {
+    console.error(error.message);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -31,6 +52,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if (selection.length == 3) {
                 // Deselect all
                 selection = [];
+                result = await fetchUpdate()
+                console.log("update?", result)
+                if (result) {
+                    console.log("updated")
+                    location.reload()
+                }
             }
 
             // Change selection
