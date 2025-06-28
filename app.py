@@ -18,6 +18,8 @@ def index():
         elif request.json.get("update"):
             print("update")
             result = game.move_set_to_pile()
+            if result:
+                game.deal(3)
             return json.dumps(result)
 
     else:

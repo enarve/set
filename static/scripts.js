@@ -1,4 +1,23 @@
 selection = [];
+if (localStorage.getItem("selection")) {
+    selection = JSON.parse(localStorage.getItem("selection"));
+    console.log("yes", selection);
+}
+
+function saveSelection() {
+    localStorage.setItem("selection", JSON.stringify(selection));
+}
+
+function updateAppearance() {
+    cards = document.querySelectorAll(".card")
+    for (card of cards) {
+        if (selection.includes(card.id)) {
+            card.style.backgroundColor = "yellow";
+        } else {
+            card.style.backgroundColor = "";
+        }
+    }
+}
 
 async function fetchCompare() {
   const url = "/data/compare";
@@ -23,6 +42,7 @@ async function fetchCompare() {
 }
 
 async function fetchUpdate() {
+  saveSelection();
   const url = "/";
   try {
     const response = await fetch(url, {
@@ -44,64 +64,82 @@ async function fetchUpdate() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+async function handleCardClick(event) {
+
     cards = document.querySelectorAll(".card")
-    for (card of cards) {
-        card.addEventListener("click", async function(event) {
 
-            if (selection.length == 3) {
-                // Deselect all
-                selection = [];
-                result = await fetchUpdate()
-                console.log("update?", result)
-                if (result) {
-                    console.log("updated")
-                    location.reload()
-                }
-            }
+    if (selection.length == 3) {
+        // Deselect all
+        selection = [];
+        saveSelection()
+    }
 
-            // Change selection
-            if (selection.includes(event.target.id)) {
-                // Deselect card
-                const index = selection.indexOf(event.target.id)
-                if (index > -1) {
-                    selection.splice(index, 1);
-                }
-            } else {
-                // Select card
-                selection.push(event.target.id);
-            }
+    // Change selection
+    if (selection.includes(event.target.id)) {
+        // Deselect card
+        const index = selection.indexOf(event.target.id)
+        if (index > -1) {
+            selection.splice(index, 1);
+        }
+    } else {
+        // Select card
+        selection.push(event.target.id);
+    }
 
-            // Update appearance
+    // Update appearance
+    updateAppearance();
+
+    // Check triple if set
+    if (selection.length == 3) {
+        result = await fetchCompare();
+        if (result) {
             for (card of cards) {
                 if (selection.includes(card.id)) {
-                    card.style.backgroundColor = "yellow";
+                    card.style.backgroundColor = "green";
+                    // card.disabled = "disabled";
+                    card.removeEventListener("click", handleCardClick);
+                    // console.log("here?", card.disabled)
                 } else {
                     card.style.backgroundColor = "";
                 }
             }
-
-            // Check triple if set
-            if (selection.length == 3) {
-                result = await fetchCompare();
-                if (result) {
-                    for (card of cards) {
-                        if (selection.includes(card.id)) {
-                            card.style.backgroundColor = "green";
-                        } else {
-                            card.style.backgroundColor = "";
-                        }
-                    }
+        } else {
+            for (card of cards) {
+                if (selection.includes(card.id)) {
+                    card.style.backgroundColor = "red";
                 } else {
-                    for (card of cards) {
-                        if (selection.includes(card.id)) {
-                            card.style.backgroundColor = "red";
-                        } else {
-                            card.style.backgroundColor = "";
-                        }
-                    }
+                    card.style.backgroundColor = "";
                 }
             }
-        })
+        }
+    } else {
+        result = await fetchUpdate()
+        console.log("update?", result)
+        if (result) {
+            console.log("updated")
+            location.reload()
+        }
     }
+
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    updateAppearance();
+    cards = document.querySelectorAll(".card")
+    for (card of cards) {
+        card.addEventListener("click", handleCardClick)
+    }
+
+    document.querySelector("#restart").addEventListener("click", function(e) {
+        selection = [];
+        saveSelection();
+    })
+
+    document.querySelector("#deal_more").addEventListener("click", function(e) {
+        if (selection.length == 3) {
+        // Deselect all
+        selection = [];
+        }
+        saveSelection();
+    })
 });
