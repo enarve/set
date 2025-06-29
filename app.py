@@ -25,7 +25,8 @@ def index():
             print("update")
             result = game.move_set_to_pile()
             if result:
-                game.deal(3)
+                pass
+                # game.deal(3)
             return json.dumps(result)
 
     else:
@@ -45,7 +46,7 @@ def compare():
             selected_cards.append(card)
         result = game.compare(selected_cards)
         if result:
-            game.take_set(selected_cards)
+            game.take_set_and_replace(selected_cards)
     return json.dumps(result)
 
 @app.route('/leaderboard')

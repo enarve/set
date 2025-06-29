@@ -125,6 +125,17 @@ class Game():
             return True
         else:
             return False
+        
+    def take_set_and_replace(self, cards):
+        for card in cards:
+            # remove card
+            index = self.table.cards.index(card)
+            self.table.cards.remove(card)
+            self.set.cards.append(card)
+
+            # add new card
+            new_card = self.deck.cards.pop()
+            self.table.cards.insert(index, new_card)
 
     def deal(self, number=12):
         for _ in range(number):
