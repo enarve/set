@@ -4,18 +4,25 @@
     Set
 {% endblock %}
 
+{% block script %}
+    <script src="static/scripts.js"></script>
+{% endblock %}
+
 {% block main %}
     <div class="card-table">
     {% for row in range(rows) %}
         {% for column in range(columns) %}
                 {% if columns * row + column < cards|length %}
                 <div class="card" id="{{cards[columns * row + column].id}}">
-                    [
-                    {{cards[columns * row + column].color}}
-                    {{cards[columns * row + column].number}}
-                    {{cards[columns * row + column].form}}
-                    {{cards[columns * row + column].fill}}
-                    ]
+                    <div class="card-content">
+                    {% for n in range(cards[columns * row + column].number+1) %}
+
+                        <!-- Different types of suits -->
+                         <div class="suit color{{cards[columns * row + column].color+1}} form{{cards[columns * row + column].form+1}} fill{{cards[columns * row + column].fill+1}}">
+                            
+                        </div>
+                    {% endfor %}
+                    </div>
                 </div>
                 {% endif %}
         {% endfor %}

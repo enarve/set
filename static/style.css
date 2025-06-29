@@ -4,6 +4,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     max-width: 900px;
     margin: auto;
+    background-color: antiquewhite;
 }
 
 nav {
@@ -43,10 +44,185 @@ nav a:hover {
     align-items: center;
     justify-content: center;
     display: flex;
+    background-color: white;
+    border-radius: 15px;
 }
 
 .card-table {
     display: grid;
     grid-template-columns: repeat(4, 100px);
     gap: 5px;
+}
+
+/* Card content */
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+.suit {
+    width: 50px;
+    height: 8px;
+    padding: 10px;
+    margin: 5px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.color1 {
+    background-color: #dc143c;
+}
+.color2 {
+    background-color: green;
+}
+.color3 {
+    background-color: #800080;
+}
+.suit.form1 {
+    border-radius: 20px;
+}
+.suit.form2 {
+    aspect-ratio: 1;
+    clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+}
+/* .suit.form3 {
+    clip-path: polygon( 97.993% 10.517%,97.993% 10.517%,95.543% 3.763%,93.779% 0.529%,92.45% 0.152%,91.306% 1.971%,90.095% 5.326%,88.567% 9.554%,86.471% 13.993%,83.555% 17.983%,79.57% 20.863%,74.263% 21.969%,23.078% 21.97%,23.078% 21.97%,18.969% 23.208%,14.855% 26.7%,10.914% 32.111%,7.324% 39.108%,4.261% 47.355%,1.903% 56.518%,0.428% 66.263%,0.012% 76.255%,0.834% 86.16%,3.07% 95.644%,3.07% 95.644%,4.333% 98.948%,5.246% 99.999%,6.002% 99.244%,6.795% 97.134%,7.815% 94.117%,9.257% 90.642%,11.311% 87.157%,14.171% 84.112%,18.03% 81.956%,23.078% 81.138%,74.263% 81.138%,74.263% 81.138%,78.868% 79.795%,83.371% 76.05%,87.624% 70.327%,91.48% 63.051%,94.791% 54.644%,97.409% 45.532%,99.186% 36.14%,99.974% 26.89%,99.626% 18.208%,97.993% 10.517% );
+} */
+
+/* Squiggles */
+.color1.form3.fill3 {
+    background: url("/static/images/sq-r-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form3.fill3 {
+    background: url("/static/images/sq-g-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form3.fill3 {
+    background: url("/static/images/sq-p-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form3.fill2 {
+    background: url("/static/images/sq-r-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form3.fill2 {
+    background: url("/static/images/sq-g-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form3.fill2 {
+    background: url("/static/images/sq-p-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form3.fill1 {
+    background: url("/static/images/sq-r-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form3.fill1 {
+    background: url("/static/images/sq-g-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form3.fill1 {
+    background: url("/static/images/sq-p-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+/* Rectangles */
+.color1.form1.fill3 {
+    background: url("/static/images/re-r-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form1.fill3 {
+    background: url("/static/images/re-g-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form1.fill3 {
+    background: url("/static/images/re-p-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form1.fill2 {
+    background: url("/static/images/re-r-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form1.fill2 {
+    background: url("/static/images/re-g-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form1.fill2 {
+    background: url("/static/images/re-p-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form1.fill1 {
+    background: url("/static/images/re-r-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form1.fill1 {
+    background: url("/static/images/re-g-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form1.fill1 {
+    background: url("/static/images/re-p-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+/* Diamonds */
+.color1.form2.fill3 {
+    background: url("/static/images/di-r-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form2.fill3 {
+    background: url("/static/images/di-g-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form2.fill3 {
+    background: url("/static/images/di-p-s.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form2.fill2 {
+    background: url("/static/images/di-r-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form2.fill2 {
+    background: url("/static/images/di-g-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form2.fill2 {
+    background: url("/static/images/di-p-e.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color1.form2.fill1 {
+    background: url("/static/images/di-r-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color2.form2.fill1 {
+    background: url("/static/images/di-g-f.svg") no-repeat center center;
+    background-size: contain;
+}
+
+.color3.form2.fill1 {
+    background: url("/static/images/di-p-f.svg") no-repeat center center;
+    background-size: contain;
 }

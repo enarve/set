@@ -1,7 +1,6 @@
 selection = [];
 if (localStorage.getItem("selection")) {
     selection = JSON.parse(localStorage.getItem("selection"));
-    console.log("yes", selection);
 }
 
 function saveSelection() {
@@ -34,7 +33,6 @@ async function fetchCompare() {
     }
 
     const json = await response.json();
-    console.log(json);
     return json;
   } catch (error) {
     console.error(error.message);
@@ -57,7 +55,6 @@ async function fetchUpdate() {
     }
 
     const json = await response.json();
-    console.log(json);
     return json;
   } catch (error) {
     console.error(error.message);
@@ -96,9 +93,7 @@ async function handleCardClick(event) {
             for (card of cards) {
                 if (selection.includes(card.id)) {
                     card.style.backgroundColor = "green";
-                    // card.disabled = "disabled";
                     card.removeEventListener("click", handleCardClick);
-                    // console.log("here?", card.disabled)
                 } else {
                     card.style.backgroundColor = "";
                 }
@@ -114,9 +109,7 @@ async function handleCardClick(event) {
         }
     } else {
         result = await fetchUpdate()
-        console.log("update?", result)
         if (result) {
-            console.log("updated")
             location.reload()
         }
     }
