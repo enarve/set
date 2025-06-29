@@ -53,6 +53,11 @@ nav a:hover {
 
 .card:hover {
     border: 2px solid rgb(203, 203, 203);
+    cursor: pointer;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .card-table {
