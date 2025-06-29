@@ -46,6 +46,13 @@ nav a:hover {
     display: flex;
     background-color: white;
     border-radius: 15px;
+    box-sizing: border-box;
+    border: 2px solid rgb(228, 228, 228);
+    /* border-color: rgb(33, 83, 159); */
+}
+
+.card:hover {
+    border: 2px solid rgb(203, 203, 203);
 }
 
 .card-table {

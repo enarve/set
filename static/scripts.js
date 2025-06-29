@@ -11,9 +11,10 @@ function updateAppearance() {
     cards = document.querySelectorAll(".card")
     for (card of cards) {
         if (selection.includes(card.id)) {
-            card.style.backgroundColor = "yellow";
+            // card.style.backgroundColor = "yellow";
+            card.style.borderColor = "rgb(180, 142, 118)";
         } else {
-            card.style.backgroundColor = "";
+            card.style.borderColor = "";
         }
     }
 }
@@ -63,18 +64,18 @@ async function fetchUpdate() {
 
 async function handleCardClick(event) {
 
-    cards = document.querySelectorAll(".card")
+    cards = document.querySelectorAll(".card");
 
     if (selection.length == 3) {
         // Deselect all
         selection = [];
-        saveSelection()
+        saveSelection();
     }
 
     // Change selection
     if (selection.includes(event.target.id)) {
         // Deselect card
-        const index = selection.indexOf(event.target.id)
+        const index = selection.indexOf(event.target.id);
         if (index > -1) {
             selection.splice(index, 1);
         }
@@ -92,18 +93,18 @@ async function handleCardClick(event) {
         if (result) {
             for (card of cards) {
                 if (selection.includes(card.id)) {
-                    card.style.backgroundColor = "green";
+                    card.style.borderColor = "green";
                     card.removeEventListener("click", handleCardClick);
                 } else {
-                    card.style.backgroundColor = "";
+                    card.style.borderColor = "";
                 }
             }
         } else {
             for (card of cards) {
                 if (selection.includes(card.id)) {
-                    card.style.backgroundColor = "red";
+                    card.style.borderColor = "crimson";
                 } else {
-                    card.style.backgroundColor = "";
+                    card.style.borderColor = "";
                 }
             }
         }

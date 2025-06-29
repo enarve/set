@@ -3,14 +3,14 @@ import json
 
 from model import Game
 
-app = Flask(__name__, static_folder=None)
+app = Flask(__name__)
 game = Game()
 
-@app.route('/static/<path:filename>')
-def static(filename):
-    resp = make_response(send_from_directory('static/', filename))
-    resp.headers['Cache-Control'] = 'max-age'
-    return resp
+# @app.route('/static/images/<path:filename>')
+# def static(filename):
+#     resp = make_response(send_from_directory('static/', filename))
+#     resp.headers['Cache-Control'] = 'max-age'
+#     return resp
 
 @app.route('/', methods=["GET", "POST"])
 def index():

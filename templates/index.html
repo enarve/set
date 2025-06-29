@@ -14,11 +14,11 @@
         {% for column in range(columns) %}
                 {% if columns * row + column < cards|length %}
                 <div class="card" id="{{cards[columns * row + column].id}}">
-                    <div class="card-content">
+                    <div class="card-content" id="{{cards[columns * row + column].id}}">
                     {% for n in range(cards[columns * row + column].number+1) %}
 
                         <!-- Different types of suits -->
-                         <div class="suit color{{cards[columns * row + column].color+1}} form{{cards[columns * row + column].form+1}} fill{{cards[columns * row + column].fill+1}}">
+                         <div id="{{cards[columns * row + column].id}}" class="suit color{{cards[columns * row + column].color+1}} form{{cards[columns * row + column].form+1}} fill{{cards[columns * row + column].fill+1}}">
                             
                         </div>
                     {% endfor %}
