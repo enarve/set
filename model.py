@@ -137,7 +137,7 @@ class Game():
             self.set.cards.append(card)
 
             # add new card
-            if self.deck.cards:
+            if self.deck.cards and len(self.table.cards) < 12:
                 new_card = self.deck.cards.pop()
                 self.table.cards.insert(index, new_card)
         
@@ -148,6 +148,15 @@ class Game():
             if self.deck.cards:
                 card = self.deck.cards.pop()
                 self.table.cards.append(card)
+
+    def check_sets(self):
+        for card1 in self.table.cards:
+            for card2 in self.table.cards:
+                for card3 in self.table.cards:
+                    if (card1.id != card2.id) and (card2.id != card3.id):
+                        if self.compare([card1, card2, card3]):
+                            return True
+        return False
 
     def restart(self):
         self.deck = Deck()

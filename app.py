@@ -30,7 +30,7 @@ def index():
             return json.dumps(result)
 
     else:
-        return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns(), score=game.score)
+        return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns(), score=game.score, deck=len(game.deck.cards))
 
 @app.route('/data/compare', methods=["POST"])
 def compare():
@@ -48,6 +48,14 @@ def compare():
         if result:
             game.take_set_and_replace(selected_cards)
     return json.dumps(result)
+
+@app.route('/data/check_state', methods=["POST"])
+def check_state():
+    if len(game.deck.cards) > 0:
+        return json.dumps(False)
+    else:
+        game_end = not game.check_sets()
+        return json.dumps(game_end)
 
 @app.route('/leaderboard')
 def leaderboard():

@@ -19,6 +19,27 @@ function updateAppearance() {
     }
 }
 
+async function fetchCheckState() {
+  const url = "/data/check_state";
+  try {
+    const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify({ check: true }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function fetchCompare() {
   const url = "/data/compare";
   try {
@@ -117,7 +138,14 @@ async function handleCardClick(event) {
 
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
+    result = await fetchCheckState();
+    if (result) {
+        document.querySelector(".result").innerHTML = "You won!"
+    } else {
+        document.querySelector(".result").innerHTML = ""
+    }
+
     updateAppearance();
     cards = document.querySelectorAll(".card")
     for (card of cards) {

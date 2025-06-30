@@ -45,6 +45,22 @@ nav a:hover {
     color: darkblue;
 }
 
+.menubar {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.score {
+    margin-right: 20px;
+}
+
+.menubar_item {
+    display: inline;
+}
+
 /* Table */
 
 .card-table {
