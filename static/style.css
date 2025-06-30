@@ -96,10 +96,9 @@ button:hover {
     /* height: 100%; */
 }
 .suit {
-    /* width: 50px;
-    height: 8px; */
-    padding: 10px;
-    margin: 5px;
+    height: 100%;
+    aspect-ratio: 300/150;
+    margin: 2px 18px;
     align-items: center;
     justify-content: center;
     display: flex;
