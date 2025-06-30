@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block main %}
+
     <div class="card-table">
     {% for row in range(rows) %}
         {% for column in range(columns) %}
@@ -27,10 +28,10 @@
                 {% endif %}
         {% endfor %}
     {% endfor %}
-</div>
+    </div>
 
     <div>
-        <p>Score: 0</p>
+        <p>Score: {{score}}</p>
         <form action="/", method="post">
             <button id="deal_more" name="deal_more" value="deal_more">Add 3 cards</button>
         </form>

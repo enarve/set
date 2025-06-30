@@ -30,7 +30,7 @@ def index():
             return json.dumps(result)
 
     else:
-        return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns())
+        return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns(), score=game.score)
 
 @app.route('/data/compare', methods=["POST"])
 def compare():

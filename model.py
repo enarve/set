@@ -77,11 +77,14 @@ class Game():
     set: Set
     pile: Pile
 
+    score: int
+
     def __init__(self):
         self.deck = Deck()
         self.table = Table()
         self.set = Set()
         self.pile = Pile()
+        self.score = 0
         self.deal()
 
     def compare(self, cards):
@@ -113,10 +116,10 @@ class Game():
         condition = (ecolor or dcolor) and (enumber or dnumber) and (eform or dform) and (efill or dfill)
         return condition
 
-    def take_set(self, cards):
-        for card in cards:
-            self.table.cards.remove(card)
-            self.set.cards.append(card)
+    # def take_set(self, cards):
+    #     for card in cards:
+    #         self.table.cards.remove(card)
+    #         self.set.cards.append(card)
 
     def move_set_to_pile(self):
         if self.set.cards:
@@ -137,6 +140,8 @@ class Game():
             if self.deck.cards:
                 new_card = self.deck.cards.pop()
                 self.table.cards.insert(index, new_card)
+        
+        self.score += 1
 
     def deal(self, number=12):
         for _ in range(number):
@@ -148,4 +153,5 @@ class Game():
         self.deck = Deck()
         self.table = Table()
         self.pile = Pile()
+        self.score = 0
         self.deal()
