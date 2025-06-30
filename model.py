@@ -134,13 +134,15 @@ class Game():
             self.set.cards.append(card)
 
             # add new card
-            new_card = self.deck.cards.pop()
-            self.table.cards.insert(index, new_card)
+            if self.deck.cards:
+                new_card = self.deck.cards.pop()
+                self.table.cards.insert(index, new_card)
 
     def deal(self, number=12):
         for _ in range(number):
-            card = self.deck.cards.pop()
-            self.table.cards.append(card)
+            if self.deck.cards:
+                card = self.deck.cards.pop()
+                self.table.cards.append(card)
 
     def restart(self):
         self.deck = Deck()
