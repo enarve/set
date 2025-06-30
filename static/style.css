@@ -50,7 +50,7 @@ nav a:hover {
 .card-table {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 10px;
     box-sizing: border-box;
     padding: 10px;
     min-width: 50vw;
@@ -67,6 +67,7 @@ button:hover {
 
 /* Card appearance */
 .card {
+    flex-basis: 15%;
     /* width: 100px; */
     min-width: 14vh;
     /* max-height: 150px; */
@@ -80,11 +81,13 @@ button:hover {
     border: 2px solid rgb(228, 228, 228);
     /* border-color: rgb(33, 83, 159); */
     aspect-ratio: 2/3;
+    transition: all .2s ease-in-out;
 }
 
 .card:hover {
     border: 2px solid rgb(203, 203, 203);
     cursor: pointer;
+    transform: scale(1.05);
 }
 
 /* Card content */
@@ -98,7 +101,7 @@ button:hover {
 .suit {
     height: 100%;
     aspect-ratio: 300/150;
-    margin: 2px 18px;
+    margin: 2% 20%;
     align-items: center;
     justify-content: center;
     display: flex;
