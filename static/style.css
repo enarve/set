@@ -369,6 +369,10 @@ footer p {
     color: #c9b3b9;
 }
 
-footer a {
+a {
     color: #695a5e;
+}
+
+a:hover {
+    color: crimson;
 }
