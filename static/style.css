@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Mono&display=swap');
+
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    max-width: 900px;
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: "Libertinus Mono", monospace;
+    max-width: 600px;
     margin: auto;
     background-color: rgb(249, 243, 236);
 }
@@ -14,6 +17,36 @@ main {
 }
 
 /* Navigation */
+
+.font {
+  font-family: "Libertinus Mono", monospace;
+  font-size: 32pt;
+  text-transform: lowercase;
+  font-weight: 600;
+  font-style: normal;
+  color: black;
+}
+
+span.red {
+    color: crimson;
+}
+span.green {
+    color: green;
+}
+span.purple {
+    color: purple;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: black;
+}
 
 nav {
     display: flex;
@@ -33,16 +66,18 @@ nav ul {
 
 nav a {
     text-decoration: none;
-    color: #000;
+    color: #312a2c;
     display: block;
     min-width: 100px;
-    padding: 25px 20px;
+    padding: 15px 20px;
     font-weight: bold;
     text-align: center;
+    background-color: white;
 }
 
 nav a:hover {
-    color: darkblue;
+    color: rgb(255, 255, 255);
+    background-color: rgb(199, 151, 157);
 }
 
 .menubar {
@@ -76,13 +111,19 @@ nav a:hover {
     gap: 10px;
     box-sizing: border-box;
     padding: 10px;
-    min-width: 50vw;
+    min-width: 100%;
     justify-content: center;
     margin: auto;
-    
+    width: fit-content;
+    height: fit-content;
 }
 
 /* Buttons */
+
+button {
+    background: none;
+    border: none;
+}
 
 button:hover {
     cursor: pointer;
@@ -90,9 +131,9 @@ button:hover {
 
 /* Card appearance */
 .card {
-    flex-basis: 15%;
-    /* width: 100px; */
-    min-width: 14vh;
+    flex: 0 1 22%;
+    width: 130px;
+    /* max-width: 140px; */
     /* max-height: 150px; */
     
     align-items: center;
