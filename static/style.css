@@ -37,10 +37,24 @@ span.purple {
     color: purple;
 }
 
+.icon {
+    color: purple;
+}
+
+.icon:hover {
+    color: rgb(181, 79, 181);
+}
+
 .logo {
     display: flex;
     justify-content: center;
     margin: 20px;
+    transition: all .2s ease-in-out;
+}
+
+.logo:hover {
+    opacity: 70%;
+    transform: scale(1.1);
 }
 
 .logo a {
