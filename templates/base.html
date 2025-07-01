@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html>
+<html lang="en">
 
     <head>
         <title>
@@ -8,6 +8,7 @@
         </title>
         {% block script %}{% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
         <link href="static/style.css" rel="stylesheet" />
         <link href="static/favicon.ico" rel="shortcut icon" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
@@ -15,11 +16,12 @@
 
     <body>
         <header>
-            <div class="logo font"><a href="/"><span class="red">S</span><span class="green">e</span><span class="purple">t</span></a></div>
-            <!-- <div class="nav">
+
             <nav>
-                
                 <ul>
+                    <li>
+                        <a href="/">Play</a>
+                    </li>
                     <li>
                         <a href="/rules">Rules</a>
                     </li>
@@ -28,7 +30,8 @@
                     </li> 
                 </ul>
             </nav>
-            </div> -->
+
+            <div class="logo font" id="logo"><span class="red">S</span><span class="green">e</span><span class="purple">t</span></div>
         </header>
 
         <main>
@@ -36,6 +39,9 @@
         </main>
 
         <footer>
+            <p>
+                made by <a href="https://github.com/enarve/set">enarve</a>
+            </p>
         </footer>
   
     </body>

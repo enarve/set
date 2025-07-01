@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Libertinus+Mono&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -113,6 +119,11 @@ nav a:hover {
     text-align: center;
 }
 
+.result {
+    margin-right: 20px;
+    text-align: center;
+}
+
 .menubar_item {
     display: inline;
 }
@@ -129,7 +140,7 @@ nav a:hover {
     justify-content: center;
     margin: auto;
     width: fit-content;
-    height: fit-content;
+    height: fit-content;;
 }
 
 /* Buttons */
@@ -343,4 +354,21 @@ button:hover {
 .color3.form2.fill1 {
     background: url("/static/images/di-p-f.svg") no-repeat center center;
     background-size: contain;
+}
+
+/* Footer */
+
+footer {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+footer p {
+    font-size: 10pt;
+    color: #c9b3b9;
+}
+
+footer a {
+    color: #695a5e;
 }

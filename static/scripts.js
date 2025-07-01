@@ -7,6 +7,16 @@ function saveSelection() {
     localStorage.setItem("selection", JSON.stringify(selection));
 }
 
+// function openNavbar() {
+//     navbar.classList.remove("show");
+//     navbar.setAttribute("aria-expanded", true);
+// }
+
+// function closeNavbar() {
+//     navbar.classList.add("show");
+//     navbar.setAttribute("aria-expanded", false);
+// }
+
 function updateAppearance() {
     cards = document.querySelectorAll(".card")
     for (card of cards) {
@@ -114,8 +124,10 @@ async function handleCardClick(event) {
         if (result) {
             for (card of cards) {
                 if (selection.includes(card.id)) {
+                    
                     card.style.borderColor = "green";
                     card.removeEventListener("click", handleCardClick);
+
                 } else {
                     card.style.borderColor = "";
                 }
@@ -138,12 +150,31 @@ async function handleCardClick(event) {
 
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 document.addEventListener("DOMContentLoaded", async function() {
+
     result = await fetchCheckState();
     if (result) {
-        document.querySelector(".result").innerHTML = "You won!"
+        document.querySelector(".result").innerHTML = "You won!";
+        document.querySelector(".deck").style.display = "none";
+        
+        confetti.setCount(200);
+        const times = 10;
+
+        for(let i = 0; i < times; i++){
+            document.querySelector("#logo").click();
+            sleep(50);
+        }
+        
+ 
+        alert("Congratulations! You collected all sets!")
+
     } else {
         document.querySelector(".result").innerHTML = ""
+        document.querySelector(".deck").style.display = "";
     }
 
     updateAppearance();
