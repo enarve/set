@@ -24,9 +24,6 @@ def index():
         elif request.json.get("update"):
             print("update")
             result = game.move_set_to_pile()
-            if result:
-                pass
-                # game.deal(3)
             return json.dumps(result)
 
     else:
@@ -55,6 +52,8 @@ def check_state():
         return json.dumps(False)
     else:
         game_end = not game.check_sets()
+        if game_end:
+            game.restart()
         return json.dumps(game_end)
 
 @app.route('/leaderboard')
