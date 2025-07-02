@@ -16,12 +16,14 @@ def init_db():
         cur = con.cursor()
         cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, hash TEXT NOT NULL, games INTEGER NOT NULL DEFAULT 0, sets INTEGER NOT NULL DEFAULT 0);")
         con.commit()
+        con.close()
         print("Database created.")
     except:
         print("Error while creating database.")
 
-init_db()
 app = Flask(__name__)
+with app.app_context():
+    init_db()
 game = Game()
 
 # Configure session to use filesystem (instead of signed cookies)
@@ -101,6 +103,8 @@ def login():
                 print(user)
                 if user:
                     session["user_id"] = user["id"]
+
+            con.close()
             return redirect("/")
         else:
             return redirect("/login")
@@ -136,6 +140,7 @@ def account():
                 rank_data = rank_res.fetchone()
                 data["rank"] = rank_data["rank"]
                 return render_template('account.html', data=data, login=logged_in())
+        con.close()
         return redirect("/")
 
 @app.route('/data/compare', methods=["POST"])
@@ -166,6 +171,7 @@ def compare():
                 sets+=1
                 cur.execute("UPDATE users SET sets = ? WHERE id = ?;", (sets, user_id, ))
                 con.commit()
+                con.close()
 
     return json.dumps(result)
 
@@ -189,6 +195,7 @@ def check_state():
                 games+=1
                 cur.execute("UPDATE users SET games = ? WHERE id = ?;", (games, user_id, ))
                 con.commit()
+                con.close()
 
             game.restart()
         return json.dumps(game_end)
@@ -203,6 +210,7 @@ def leaderboard():
     userdicts = []
     for user in users:
         userdicts.append(dict(user))
+    con.close()
     return render_template('leaderboard.html', users=userdicts, login=logged_in())
 
 @app.route('/rules')
