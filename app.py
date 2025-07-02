@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, redirect, session, make_response, send_from_directory
 from flask_session import Session
+from werkzeug.security import check_password_hash, generate_password_hash
 import json
+import sqlite3
 
 from helpers import login_required
 from model import Game
+
+DATABASE = 'database.db'
 
 app = Flask(__name__)
 game = Game()
@@ -64,10 +68,29 @@ def login():
         print(name, password)
         if name and password:
             # Query database for username
-            rows = [{"id": 0}]
-            # Ensure username exists and password is correct
-            #
-            session["user_id"] = rows[0]["id"]
+            con = sqlite3.connect(DATABASE)
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            res = cur.execute("SELECT * FROM users WHERE name = ?;", (name,))
+            users = res.fetchall()
+            
+            if users:
+                # try to login or return
+                hash = users[0]["hash"]
+                if check_password_hash(hash, password):
+                    session["user_id"] = users[0]["id"]
+                else:
+                    return redirect("/login")
+            else:
+                # register new user
+                hash = generate_password_hash(password)
+                cur.execute("INSERT INTO users (name, hash) VALUES (?, ?);", (name, hash, ))
+                con.commit()
+                res = cur.execute("SELECT * FROM users WHERE name = ?;", (name, ))
+                user = res.fetchone()
+                print(user)
+                if user:
+                    session["user_id"] = user["id"]
             return redirect("/")
         else:
             return redirect("/login")
@@ -90,8 +113,20 @@ def account():
     if request.method == "POST":
         return redirect("/account")
     else:
-        test_data = {"name": "enarve", "games": 3, "sets": 24, "rank": 1}
-        return render_template('account.html', data=test_data, login=logged_in())
+        con = sqlite3.connect(DATABASE)
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        user_id = session["user_id"]
+        if user_id:
+            print(user_id)
+            res = cur.execute("SELECT * FROM users WHERE id = ?", (user_id, ))
+            user = res.fetchone()
+            if user:
+                data = dict(user)
+                data["rank"] = 0
+                print(data)
+                return render_template('account.html', data=data, login=logged_in())
+        return redirect("/")
 
 @app.route('/data/compare', methods=["POST"])
 def compare():

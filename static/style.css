@@ -6,7 +6,7 @@
     box-sizing: border-box;
 }
 
-*:focus {
+input:focus {
     outline: 2px solid rgb(174, 106, 174);
 }
 
@@ -470,4 +470,9 @@ p.achievement {
 a.logout {
     display: block;
     text-decoration: none;
+}
+
+a.logo_link {
+    text-decoration: none;
+    outline: none;
 }
