@@ -4,6 +4,14 @@
     User account
 {% endblock %}
 
+{% block account %}
+    {% if login %}
+        <a href="/account">Account</a>
+    {% else %}
+        <a href="/login">Sign in</a>
+    {% endif %}
+{% endblock %}
+
 {% block main %}
 <div class="account">
     <h1>
@@ -27,8 +35,9 @@
     <button class="big_button" type="submit">Save</button>
 </form>
 
-
-<form action="" method="post">
+<div class="settings">
+<a class="logout" href="/logout">
     <button class="big_button critical" type="submit">Sign out</button>
-</form>
+</a>
+</div>
 {% endblock %}

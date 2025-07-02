@@ -4,6 +4,14 @@
     Login
 {% endblock %}
 
+{% block account %}
+    {% if login %}
+        <a href="/account">Account</a>
+    {% else %}
+        <a href="/login">Sign in</a>
+    {% endif %}
+{% endblock %}
+
 {% block main %}
 <form action="login" method="post">
     <h1>

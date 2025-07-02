@@ -466,3 +466,8 @@ p.rank {
 p.achievement {
     margin: 4px;
 }
+
+a.logout {
+    display: block;
+    text-decoration: none;
+}

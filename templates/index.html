@@ -10,6 +10,14 @@
     <script src="static/scripts.js"></script>
 {% endblock %}
 
+{% block account %}
+    {% if login %}
+        <a href="/account">Account</a>
+    {% else %}
+        <a href="/login">Sign in</a>
+    {% endif %}
+{% endblock %}
+
 {% block main %}
 
     <div class="menubar">

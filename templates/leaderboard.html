@@ -4,6 +4,14 @@
     Leaderboard
 {% endblock %}
 
+{% block account %}
+    {% if login %}
+        <a href="/account">Account</a>
+    {% else %}
+        <a href="/login">Sign in</a>
+    {% endif %}
+{% endblock %}
+
 {% block main %}
     Here the list of the players will be...
 {% endblock %}
