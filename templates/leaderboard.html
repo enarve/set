@@ -13,5 +13,22 @@
 {% endblock %}
 
 {% block main %}
-    Here the list of the players will be...
+    <div class="leaderboard">
+    <h1 class="leaderboard">Leaderboard</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th><th>username</th><th>games finished</th><th>sets collected</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <th>{{user.rank}}</th><th>{{user.name}}</th><th>{{user.games}}</th><th>{{user.sets}}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
 {% endblock %}

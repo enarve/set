@@ -476,3 +476,23 @@ a.logo_link {
     text-decoration: none;
     outline: none;
 }
+
+table, tr, th, td {
+    border: none;
+}
+
+table {
+    width: 100%;
+}
+
+div.leaderboard {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+h1.leaderboard {
+    margin-bottom: 10px;
+}
