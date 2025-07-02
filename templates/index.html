@@ -16,10 +16,10 @@
         <p class="menubar_item result"></p>
         <p class="menubar_item deck">{{deck}} {% if deck == 1 %}card{% else %}cards{% endif %} left</p>
         <form class="menubar_item" action="/", method="post">
-            <button id="deal_more" name="deal_more" value="deal_more"><span class="icon material-symbols-outlined">add_circle</span></button>
+            <button id="deal_more" name="deal_more" value="deal_more" title="Deal more cards"><span class="icon material-symbols-outlined">add_circle</span></button>
         </form>
         <form class="menubar_item" action="/", method="post">
-            <button id="restart" name="restart" value="restart"><span class="icon material-symbols-outlined">replay</span></button>
+            <button id="restart" name="restart" value="restart" title="Restart"><span class="icon material-symbols-outlined">replay</span></button>
         </form>
         <p class="menubar_item score">{{score}} {% if score == 1 %}set{% else %}sets{% endif %} collected</p>
     </div>
