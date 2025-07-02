@@ -9,6 +9,18 @@ from model import Game
 
 DATABASE = 'database.db'
 
+def init_db():
+    try:
+        con = sqlite3.connect(DATABASE)
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, hash TEXT NOT NULL, games INTEGER NOT NULL DEFAULT 0, sets INTEGER NOT NULL DEFAULT 0);")
+        con.commit()
+        print("Database created.")
+    except:
+        print("Error while creating database.")
+
+init_db()
 app = Flask(__name__)
 game = Game()
 
@@ -116,7 +128,6 @@ def account():
         cur = con.cursor()
         user_id = session["user_id"]
         if user_id:
-            print(user_id)
             res = cur.execute("SELECT * FROM users WHERE id = ?", (user_id, ))
             user = res.fetchone()
             if user:
@@ -124,7 +135,6 @@ def account():
                 rank_res = cur.execute("SELECT rank FROM (SELECT *, ROW_NUMBER() OVER () as rank FROM users ORDER BY games DESC, sets DESC) WHERE id = ?;", (user_id,))
                 rank_data = rank_res.fetchone()
                 data["rank"] = rank_data["rank"]
-                print(data)
                 return render_template('account.html', data=data, login=logged_in())
         return redirect("/")
 
@@ -188,12 +198,12 @@ def leaderboard():
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    res = cur.execute("SELECT *, ROW_NUMBER() OVER () FROM users ORDER BY games DESC, sets DESC;")
+    res = cur.execute("SELECT *, ROW_NUMBER() OVER () as rank FROM users ORDER BY games DESC, sets DESC;")
     users = res.fetchall()
-    data = []
+    userdicts = []
     for user in users:
-        data.append(dict(user))
-    return render_template('leaderboard.html', data=data, login=logged_in())
+        userdicts.append(dict(user))
+    return render_template('leaderboard.html', users=userdicts, login=logged_in())
 
 @app.route('/rules')
 def rules():
