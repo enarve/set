@@ -47,12 +47,10 @@ def index():
             game.deal(3)
             return redirect("/")
         elif request.json.get("update"):
-            print("update")
             result = game.move_set_to_pile()
             return json.dumps(result)
 
     else:
-        print("logged in?", logged_in())
         return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns(), score=game.score, deck=len(game.deck.cards)+len(game.table.cards), login=logged_in())
 
 @app.route('/login', methods=["GET", "POST"])
@@ -123,7 +121,9 @@ def account():
             user = res.fetchone()
             if user:
                 data = dict(user)
-                data["rank"] = 0
+                rank_res = cur.execute("SELECT rank FROM (SELECT *, ROW_NUMBER() OVER () as rank FROM users ORDER BY games DESC, sets DESC) WHERE id = ?;", (user_id,))
+                rank_data = rank_res.fetchone()
+                data["rank"] = rank_data["rank"]
                 print(data)
                 return render_template('account.html', data=data, login=logged_in())
         return redirect("/")
@@ -143,6 +143,20 @@ def compare():
         result = game.compare(selected_cards)
         if result:
             game.take_set_and_replace(selected_cards)
+
+            # Update user stats if logged in
+            user_id = session["user_id"]
+            if user_id:
+                con = sqlite3.connect(DATABASE)
+                con.row_factory = sqlite3.Row
+                cur = con.cursor()
+                res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
+                user = res.fetchone()
+                sets = dict(user)["sets"]
+                sets+=1
+                cur.execute("UPDATE users SET sets = ? WHERE id = ?;", (sets, user_id, ))
+                con.commit()
+
     return json.dumps(result)
 
 @app.route('/data/check_state', methods=["POST"])
@@ -152,12 +166,34 @@ def check_state():
     else:
         game_end = not game.check_sets()
         if game_end:
+
+            # Update user stats if logged in
+            user_id = session["user_id"]
+            if user_id:
+                con = sqlite3.connect(DATABASE)
+                con.row_factory = sqlite3.Row
+                cur = con.cursor()
+                res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
+                user = res.fetchone()
+                games = dict(user)["games"]
+                games+=1
+                cur.execute("UPDATE users SET games = ? WHERE id = ?;", (games, user_id, ))
+                con.commit()
+
             game.restart()
         return json.dumps(game_end)
 
 @app.route('/leaderboard')
 def leaderboard():
-    return render_template('leaderboard.html', login=logged_in())
+    con = sqlite3.connect(DATABASE)
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    res = cur.execute("SELECT *, ROW_NUMBER() OVER () FROM users ORDER BY games DESC, sets DESC;")
+    users = res.fetchall()
+    data = []
+    for user in users:
+        data.append(dict(user))
+    return render_template('leaderboard.html', data=data, login=logged_in())
 
 @app.route('/rules')
 def rules():
