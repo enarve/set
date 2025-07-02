@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+    User account
+{% endblock %}
+
+{% block main %}
+<div class="account">
+    <h1>
+        Hello, {{data.name}}!
+    </h1>
+    <p class="rank"><span class="bold">#{{data.rank}}</span> in leaderboard</p>
+    <p class="achievement"><span class="bold">{{data.games}}</span> games finished</p>
+    <p class="achievement"><span class="bold">{{data.sets}}</span> sets collected</p>
+</div>
+
+<div class="settings">
+    <h2>
+        Settings
+    </h2>
+</div>
+<form action="account" method="post">
+    
+    <input type="text" placeholder="change username" name="name" value="{{data.name}}" required></input>
+    <input type="password" placeholder="change password" name="password" required></input>
+
+    <button class="big_button" type="submit">Save</button>
+</form>
+
+
+<form action="" method="post">
+    <button class="big_button critical" type="submit">Sign out</button>
+</form>
+{% endblock %}

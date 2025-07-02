@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block main %}
+<form action="login" method="post">
+    <h1>
+        Hello there!
+    </h1>
+    <p class="info">Fill in the fields and participate in the leaderboard</p>
+    <input type="text" placeholder="username" name="name" required></input>
+    <input type="password" placeholder="password" name="password" required></input>
+
+    <button class="big_button" type="submit">Sign in</button>
+</form>
+{% endblock %}

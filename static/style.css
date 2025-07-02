@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+*:focus {
+    outline: 2px solid rgb(174, 106, 174);
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -375,4 +379,90 @@ a {
 
 a:hover {
     color: crimson;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type=text], input[type=password] {
+  width: 70%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: none;
+  box-sizing: border-box;
+  font-family: "Libertinus Mono", monospace;
+  font-size: 18pt;
+  color:rgb(195, 173, 176);
+  border-radius: 10px;
+}
+
+p.info {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.big_button {
+    margin: 20px;
+    font-family: "Libertinus Mono", monospace;
+    font-size: 12pt;
+    color: white;
+    display: block;
+    padding: 10px 20px;
+    background-color: purple;
+    border-radius: 10px;
+}
+
+.big_button:hover {
+    background-color: rgb(181, 79, 181);
+}
+
+.critical {
+    background-color: crimson;
+}
+
+.critical:hover {
+    background-color: rgb(219, 89, 115);
+}
+
+div.account {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+div.settings {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+span.bold {
+    font-weight: 900;
+}
+
+p.rank {
+    color: purple;
+    font-size: 16pt;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+p.achievement {
+    margin: 4px;
 }

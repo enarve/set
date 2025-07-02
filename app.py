@@ -29,6 +29,27 @@ def index():
     else:
         return render_template('index.html', cards=game.table.cards, rows=game.table.get_rows(), columns=game.table.get_columns(), score=game.score, deck=len(game.deck.cards)+len(game.table.cards))
 
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        name = request.form.get("name")
+        password = request.form.get("password")
+        if name and password:
+            print(f"{name} tried to sign in!")
+            return redirect("/")
+        else:
+            return redirect("/login")
+    else:
+        return render_template('login.html')
+    
+@app.route('/account', methods=["GET", "POST"])
+def account():
+    if request.method == "POST":
+        return redirect("/account")
+    else:
+        test_data = {"name": "enarve", "games": 3, "sets": 24, "rank": 1}
+        return render_template('account.html', data=test_data)
+
 @app.route('/data/compare', methods=["POST"])
 def compare():
     result = False
