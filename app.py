@@ -24,7 +24,7 @@ def init_db():
 app = Flask(__name__)
 with app.app_context():
     init_db()
-game = Game()
+game: Game = None
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
@@ -53,15 +53,26 @@ def logged_in():
 
 @app.route('/', methods=["GET", "POST"])
 def index():
+    global game
+    game = session.get("game")
+    if not game:
+        game = Game()
+        session["game"] = game
+    else:
+        print("game score", game.score)
+
     if request.method == "POST":
         if request.form.get("restart"):
             game.restart()
+            session["game"] = game
             return redirect("/")
         elif request.form.get("deal_more"):
             game.deal(3)
+            session["game"] = game
             return redirect("/")
         elif request.json.get("update"):
             result = game.move_set_to_pile()
+            session["game"] = game
             return json.dumps(result)
 
     else:
@@ -175,60 +186,66 @@ def account():
 @app.route('/data/compare', methods=["POST"])
 def compare():
     result = False
-    data = request.json
-    # TODO: check if received cards are on the table
-    selection = data.get("selection")
-    print(selection)
-    if selection:
-        selected_cards = []
-        for id in selection:
-            card = game.table.get_card(id)
-            if card:
-                selected_cards.append(card)
-        result = game.compare(selected_cards)
-        if result:
-            game.take_set_and_replace(selected_cards)
+    if game:
+        data = request.json
+        # TODO: check if received cards are on the table
+        selection = data.get("selection")
+        print(selection)
+        if selection:
+            selected_cards = []
+            for id in selection:
+                card = game.table.get_card(id)
+                if card:
+                    selected_cards.append(card)
+            result = game.compare(selected_cards)
+            if result:
+                game.take_set_and_replace(selected_cards)
 
-            # Update user stats if logged in
-            user_id = session.get("user_id")
-            if user_id:
-                con = sqlite3.connect(DATABASE)
-                con.row_factory = sqlite3.Row
-                cur = con.cursor()
-                res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
-                user = res.fetchone()
-                sets = dict(user)["sets"]
-                sets+=1
-                cur.execute("UPDATE users SET sets = ? WHERE id = ?;", (sets, user_id, ))
-                con.commit()
-                con.close()
+                # Update user stats if logged in
+                user_id = session.get("user_id")
+                if user_id:
+                    con = sqlite3.connect(DATABASE)
+                    con.row_factory = sqlite3.Row
+                    cur = con.cursor()
+                    res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
+                    user = res.fetchone()
+                    sets = dict(user)["sets"]
+                    sets+=1
+                    cur.execute("UPDATE users SET sets = ? WHERE id = ?;", (sets, user_id, ))
+                    con.commit()
+                    con.close()
 
+        session["game"] = game
     return json.dumps(result)
 
 @app.route('/data/check_state', methods=["POST"])
 def check_state():
-    if len(game.deck.cards) > 0:
-        return json.dumps(False)
-    else:
-        game_end = not game.check_sets()
-        if game_end:
+    if game:
+        if len(game.deck.cards) > 0:
+            return json.dumps(False)
+        else:
+            game_end = not game.check_sets()
+            if game_end:
 
-            # Update user stats if logged in
-            user_id = session.get("user_id")
-            if user_id:
-                con = sqlite3.connect(DATABASE)
-                con.row_factory = sqlite3.Row
-                cur = con.cursor()
-                res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
-                user = res.fetchone()
-                games = dict(user)["games"]
-                games+=1
-                cur.execute("UPDATE users SET games = ? WHERE id = ?;", (games, user_id, ))
-                con.commit()
-                con.close()
+                # Update user stats if logged in
+                user_id = session.get("user_id")
+                if user_id:
+                    con = sqlite3.connect(DATABASE)
+                    con.row_factory = sqlite3.Row
+                    cur = con.cursor()
+                    res = cur.execute("SELECT * FROM users WHERE id = ?;", (user_id, ))
+                    user = res.fetchone()
+                    games = dict(user)["games"]
+                    games+=1
+                    cur.execute("UPDATE users SET games = ? WHERE id = ?;", (games, user_id, ))
+                    con.commit()
+                    con.close()
 
-            game.restart()
+                game.restart()
+        session["game"] = game
         return json.dumps(game_end)
+    else:
+        return json.dumps(False)
 
 @app.route('/leaderboard')
 def leaderboard():
