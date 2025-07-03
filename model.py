@@ -89,7 +89,7 @@ class Game():
         self.deal()
 
     def compare(self, cards):
-        print(cards)
+        # print(cards)
         if len(cards) == 3:
             return self.compare_conditions(cards)
         else:
