@@ -30,7 +30,7 @@ class Deck():
                         card = Card(id, i, j, k, l)
                         self.cards.append(card)
         shuffle(self.cards)
-        # self.cards = self.cards[:12]
+        self.cards = self.cards[:12]
 
 
 class Table():
