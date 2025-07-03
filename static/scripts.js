@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         const times = 10;
 
         for(let i = 0; i < times; i++){
-            document.querySelector("#logo").click();
+            document.querySelector("#surprise").click();
             sleep(50);
         }
         

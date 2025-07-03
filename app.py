@@ -136,12 +136,16 @@ def account():
             user = res.fetchone()
             if user:
                 data = dict(user)
-                rank_res = cur.execute("SELECT rank FROM (SELECT *, ROW_NUMBER() OVER () as rank FROM users ORDER BY games DESC, sets DESC) WHERE id = ?;", (user_id,))
+                rank_res = cur.execute("SELECT rank FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY games DESC, sets DESC) as rank FROM users ORDER BY games DESC, sets DESC) WHERE id = ?;", (user_id,))
                 rank_data = rank_res.fetchone()
                 data["rank"] = rank_data["rank"]
+                con.close()
                 return render_template('account.html', data=data, login=logged_in())
-        con.close()
-        return redirect("/")
+            else:
+                con.close()
+                return redirect("/logout")
+        else:
+            return redirect("/")
 
 @app.route('/data/compare', methods=["POST"])
 def compare():
@@ -206,7 +210,7 @@ def leaderboard():
     con = sqlite3.connect(DATABASE)
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    res = cur.execute("SELECT *, ROW_NUMBER() OVER () as rank FROM users ORDER BY games DESC, sets DESC;")
+    res = cur.execute("SELECT *, ROW_NUMBER() OVER (ORDER BY games DESC, sets DESC) as rank FROM users ORDER BY games DESC, sets DESC;")
     users = res.fetchall()
     userdicts = []
     for user in users:

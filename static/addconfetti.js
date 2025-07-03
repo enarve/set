@@ -1,7 +1,7 @@
 
 // document.addEventListener("DOMContentLoaded", async function() {
     // Pass in the id of an element
-    let confetti = new Confetti("logo");
+    let confetti = new Confetti("surprise");
 
     // Edit given parameters
     confetti.setCount(0);
