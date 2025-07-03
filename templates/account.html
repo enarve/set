@@ -13,6 +13,9 @@
 {% endblock %}
 
 {% block main %}
+<div style="max-width: 0; max-height: 0; overflow: hidden;">
+    <input autofocus="true" />
+</div>
 <div class="account">
     <h1>
         Hello, {{data.name}}!
@@ -21,7 +24,6 @@
     <p class="achievement"><span class="bold">{{data.games}}</span> {% if data.games == 1 %}game{% else %}games{% endif %} finished</p>
     <p class="achievement"><span class="bold">{{data.sets}}</span> {% if data.sets == 1 %}set{% else %}sets{% endif %} collected</p>
 </div>
-
 <div class="settings">
     <h2>
         Settings
@@ -29,8 +31,8 @@
 </div>
 <form action="account" method="post">
     
-    <input type="text" placeholder="change username" name="name" value="{{data.name}}"></input>
-    <input type="password" placeholder="change password" name="password"></input>
+    <input type="text" placeholder="change username" name="name" value="{{data.name}}" autofocus="false" autocomplete="false"></input>
+    <input type="password" placeholder="change password" name="password" autofocus="false" autocomplete="false"></input>
 
     <button class="big_button" type="submit">Save</button>
 </form>
@@ -40,7 +42,5 @@
     <button class="big_button critical" type="submit">Sign out</button>
 </a>
 </div>
-<div style="max-width: 0; max-height: 0; overflow: hidden;">
-    <input autofocus="true" />
-</div>
+
 {% endblock %}
