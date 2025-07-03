@@ -442,6 +442,10 @@ span.bold {
     font-weight: 900;
 }
 
+.account h1 {
+    text-align: center;
+}
+
 p.rank {
     color: purple;
     font-size: 16pt;
