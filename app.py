@@ -130,7 +130,7 @@ def account():
         con = sqlite3.connect(DATABASE)
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        user_id = session["user_id"]
+        user_id = session.get("user_id")
         if user_id:
             res = cur.execute("SELECT * FROM users WHERE id = ?", (user_id, ))
             user = res.fetchone()
@@ -154,13 +154,14 @@ def compare():
         selected_cards = []
         for id in selection:
             card = game.table.get_card(id)
-            selected_cards.append(card)
+            if card:
+                selected_cards.append(card)
         result = game.compare(selected_cards)
         if result:
             game.take_set_and_replace(selected_cards)
 
             # Update user stats if logged in
-            user_id = session["user_id"]
+            user_id = session.get("user_id")
             if user_id:
                 con = sqlite3.connect(DATABASE)
                 con.row_factory = sqlite3.Row
@@ -184,7 +185,7 @@ def check_state():
         if game_end:
 
             # Update user stats if logged in
-            user_id = session["user_id"]
+            user_id = session.get("user_id")
             if user_id:
                 con = sqlite3.connect(DATABASE)
                 con.row_factory = sqlite3.Row
