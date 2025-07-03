@@ -3,4 +3,4 @@
 
 ![Screenshot](static/images/screenshot.png?raw=true "Set")
 
-This web-based implementation of a singleplayer with leaderboard is going to be built in JavaScript and Python with Flask.
+This web-based implementation of a singleplayer with leaderboard is built in JavaScript and Python with Flask.
