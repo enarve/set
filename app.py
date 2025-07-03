@@ -77,7 +77,6 @@ def login():
     if request.method == "POST":
         name = request.form.get("name")
         password = request.form.get("password")
-        print(name, password)
         if name and password:
             # Query database for username
             con = sqlite3.connect(DATABASE)
@@ -124,13 +123,39 @@ def logout():
 @app.route('/account', methods=["GET", "POST"])
 @login_required
 def account():
+    user_id = session.get("user_id")
     if request.method == "POST":
-        return redirect("/account")
+        if user_id:
+            name = request.form.get("name")
+            password = request.form.get("password")
+
+            # check something
+            
+            con = sqlite3.connect(DATABASE)
+            con.row_factory = sqlite3.Row
+            cur = con.cursor()
+            res = cur.execute("SELECT name, hash FROM users WHERE id = ?;", (user_id, ))
+            user = dict(res.fetchone())
+
+            if name:
+                if user.get("name") != name:
+                    cur.execute("UPDATE users SET name = ? WHERE id = ?;", (name, user_id, ))
+                    con.commit()
+            
+            if password:
+                if not check_password_hash(user.get("hash"), password):
+                    new_hash = generate_password_hash(password)
+                    cur.execute("UPDATE users SET hash = ? WHERE id = ?;", (new_hash, user_id, ))
+                    con.commit()
+
+            con.close()
+            return redirect("/account")
+        else:
+            return redirect("/account")
     else:
         con = sqlite3.connect(DATABASE)
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        user_id = session.get("user_id")
         if user_id:
             res = cur.execute("SELECT * FROM users WHERE id = ?", (user_id, ))
             user = res.fetchone()
