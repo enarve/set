@@ -96,6 +96,7 @@ async function fetchUpdate() {
 async function handleCardClick(event) {
 
     cards = document.querySelectorAll(".card");
+    three_were_selected = selection.length == 3;
 
     if (selection.length == 3) {
         // Deselect all
@@ -104,15 +105,17 @@ async function handleCardClick(event) {
     }
 
     // Change selection
-    if (selection.includes(event.target.id)) {
-        // Deselect card
-        const index = selection.indexOf(event.target.id);
-        if (index > -1) {
-            selection.splice(index, 1);
+    if (!three_were_selected) {
+        if (selection.includes(event.target.id)) {
+            // Deselect card
+            const index = selection.indexOf(event.target.id);
+            if (index > -1) {
+                selection.splice(index, 1);
+            }
+        } else {
+            // Select card
+            selection.push(event.target.id);
         }
-    } else {
-        // Select card
-        selection.push(event.target.id);
     }
 
     // Update appearance
@@ -126,7 +129,7 @@ async function handleCardClick(event) {
                 if (selection.includes(card.id)) {
                     
                     card.style.borderColor = "green";
-                    card.removeEventListener("click", handleCardClick);
+                    // card.removeEventListener("click", handleCardClick);
 
                 } else {
                     card.style.borderColor = "";
